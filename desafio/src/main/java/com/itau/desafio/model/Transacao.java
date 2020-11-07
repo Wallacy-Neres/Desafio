@@ -5,15 +5,15 @@ import java.time.OffsetDateTime;
 
 public class Transacao {
 		
-	private String valor;
+	private int valor;
 	
 	private OffsetDateTime dataHora = OffsetDateTime.now();
 
-	public String getValor() {
+	public int getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(int valor) {
 		this.valor = valor;
 	}
 
@@ -24,5 +24,7 @@ public class Transacao {
 	public void setDataHora(OffsetDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
+
+	
 	
 }
