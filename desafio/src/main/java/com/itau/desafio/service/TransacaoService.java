@@ -1,40 +1,37 @@
 package com.itau.desafio.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.itau.desafio.exception.TransacaoNaoPodeAcontecerNoFuturoException;
 import com.itau.desafio.model.Transacao;
 
 @Service
 public class TransacaoService {
-	
-private static List<Transacao> transacoes;
-	
-	public TransacaoService() {
-		
-	
-		transacoes = new ArrayList<Transacao>(); 
-		
-		Transacao transacao = new Transacao(); 
-		transacao.setValor(2);
-		transacoes.add(transacao);
-		
-		transacao = new Transacao(); 
-		transacao.setValor(1);
-		transacoes.add(transacao);
-		
-		DoubleSummaryStatistics analiseDeTransacoes = transacoes.stream()
-				.collect(Collectors.summarizingDouble(Transacao::getValor));
-		System.out.println("Analise de transações : " + analiseDeTransacoes);
+
+	private List<Transacao> transacoes;
+
+	public void instanciarLista() {
+		if (transacoes == null) 
+			transacoes = new ArrayList<>();
 	}
-	
-	public static List<Transacao> listaDeTransacoes(){
-		return analiseDeTransacoes;
+
+	public void SalvarTransacao(Transacao transacao) throws TransacaoNaoPodeAcontecerNoFuturoException {
+		if (transacao.getDataHora().isAfter(LocalDateTime.now()))
+			throw new TransacaoNaoPodeAcontecerNoFuturoException("A Transação não deve ocorrer no futuro");
+
+		instanciarLista();
+		transacoes.add(transacao);
 	}
-	
+
+	public List<Transacao> listaDeTransacoes() {
+		return transacoes;
+	}
+
+	public void deletarTransacoes() {
+		transacoes.clear();
+	}
 }
