@@ -13,31 +13,31 @@ import com.itau.desafio.model.Transacao;
 
 @Service
 public class EstatisticaService {
-	
+
 	@Autowired
-	private TransacaoService service;
+    protected TransacaoService service;
 	
 	public DoubleSummaryStatistics estatistica() {
 		List<Transacao> listaTransacao = service.listaDeTransacoes();
 		
 		List<Transacao> dentroDeUmMinuto = new ArrayList<>();
 		
-		LocalDateTime horaComMinutoaMenos = LocalDateTime.now().minusSeconds(60);
-		
-		System.out.println(horaComMinutoaMenos);
-		
-		for(int i =0; i < listaTransacao.size(); i++) {
-			if(listaTransacao.get(i).getHoraDoSitema().isAfter(horaComMinutoaMenos)) {
-				dentroDeUmMinuto.add(listaTransacao.get(i));
-				System.out.println(listaTransacao.get(i).getHoraDoSitema());
-			}
-		}
-		
+		tratarAsTransacoes(listaTransacao, dentroDeUmMinuto);
 		
 		DoubleSummaryStatistics analiseDeTransacoes = dentroDeUmMinuto.stream()
 				.collect(Collectors.summarizingDouble(Transacao::getValor));
 			
 			return analiseDeTransacoes;
+	}
+
+	protected void tratarAsTransacoes(List<Transacao> listaTransacao, List<Transacao> dentroDeUmMinuto) {
+		LocalDateTime horaComMinutoaMenos = LocalDateTime.now().minusSeconds(60);
+		
+		for(int i =0; i < listaTransacao.size(); i++) {
+			if(listaTransacao.get(i).getHoraDoSitema().isAfter(horaComMinutoaMenos)) {
+				dentroDeUmMinuto.add(listaTransacao.get(i));
+			}
+		}
 	}
 	
 }

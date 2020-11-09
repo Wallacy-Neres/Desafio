@@ -12,7 +12,7 @@ import com.itau.desafio.model.Transacao;
 @Service
 public class TransacaoService {
 
-	private List<Transacao> transacoes;
+	protected List<Transacao> transacoes;
 
 	public void instanciarLista() {
 		if (transacoes == null) 
