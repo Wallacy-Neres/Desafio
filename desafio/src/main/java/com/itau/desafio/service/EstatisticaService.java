@@ -18,6 +18,8 @@ public class EstatisticaService {
     protected TransacaoService service;
 	
 	public DoubleSummaryStatistics estatistica() {
+		service.instanciarLista();
+		
 		List<Transacao> listaTransacao = service.listaDeTransacoes();
 		
 		List<Transacao> dentroDeUmMinuto = new ArrayList<>();
@@ -33,8 +35,8 @@ public class EstatisticaService {
 	protected void tratarAsTransacoes(List<Transacao> listaTransacao, List<Transacao> dentroDeUmMinuto) {
 		LocalDateTime horaComMinutoaMenos = LocalDateTime.now().minusSeconds(60);
 		
-		for(int i =0; i < listaTransacao.size(); i++) {
-			if(listaTransacao.get(i).getHoraDoSitema().isAfter(horaComMinutoaMenos)) {
+		for(int i = 0; i < listaTransacao.size(); i++) {
+			if(!listaTransacao.isEmpty() && listaTransacao.get(i).getHoraDoSitema().isAfter(horaComMinutoaMenos)) {
 				dentroDeUmMinuto.add(listaTransacao.get(i));
 			}
 		}

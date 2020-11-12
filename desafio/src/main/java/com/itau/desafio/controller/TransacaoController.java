@@ -58,11 +58,15 @@ public class TransacaoController {
 	}
 	
 	@DeleteMapping("/transacao")
-	public ResponseEntity<?> deletarTransacoes(){
-		transacaoService.deletarTransacoes();
-		return ResponseEntity.noContent().build();
-	}
-	
+	public ResponseEntity<?> deletarTransacoes(){	
+		
+		if(transacaoService.listaDeTransacoes() == null) 
+			return ResponseEntity.notFound().build();
+		else {
+			transacaoService.deletarTransacoes();
+			return ResponseEntity.noContent().build();
+		}
+	}	
 	
 	
 }

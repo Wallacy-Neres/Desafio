@@ -2,7 +2,6 @@ package com.itau.desafio.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 import org.junit.Assert;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import com.itau.desafio.exception.TransacaoNaoPodeAcontecerNoFuturoException;
 import com.itau.desafio.model.Transacao;
 
 public class EstatisticasServiceTest {
@@ -28,20 +26,9 @@ public class EstatisticasServiceTest {
 		MockitoAnnotations.initMocks(this);
 	}
 	
-	//@Test
-	public void deve_devolver_as_estatisticas() throws TransacaoNaoPodeAcontecerNoFuturoException {
-		Transacao transacao = new Transacao();
-		transacao.setDataHora(LocalDateTime.now());
-		estatisticasService.service.SalvarTransacao(transacao);
-		
-		DoubleSummaryStatistics estatisticas = estatisticasService.estatistica();
-		
-		Assert.assertEquals(1, estatisticas.getCount());
-		
-	}
 	
 	@Test
-	public void deve_retornar_a_lista_tratada() {
+	public void deveRetornarAlistaTratada() {
 		List<Transacao> listaTransacoes = new ArrayList<>();
 		List<Transacao> listaTransacoesTratada = new ArrayList<>();
 		

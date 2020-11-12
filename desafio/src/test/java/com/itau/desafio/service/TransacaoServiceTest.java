@@ -24,13 +24,13 @@ public class TransacaoServiceTest {
 	}
 	
 	@Test
-	public void deve_instanciar_lista() {
+	public void deveInstanciarLista() {
 		service.instanciarLista();
 		Assert.assertNotNull(service.transacoes);
 	}
 	
 	@Test
-	public void deve_salvar_transacao() throws TransacaoNaoPodeAcontecerNoFuturoException {
+	public void deveSalvarTransacao() throws TransacaoNaoPodeAcontecerNoFuturoException {
 		Transacao transacao = new Transacao();
 		transacao.setDataHora(LocalDateTime.now());
 		
@@ -41,7 +41,7 @@ public class TransacaoServiceTest {
 	}
 	
 	@Test(expected = TransacaoNaoPodeAcontecerNoFuturoException.class)
-	public void deve_devolver_erro_transacao_no_futuro() throws TransacaoNaoPodeAcontecerNoFuturoException {
+	public void deveDevolverErroTransacaoNoFuturo() throws TransacaoNaoPodeAcontecerNoFuturoException {
 		Transacao transacao = new Transacao();
 		transacao.setDataHora(LocalDateTime.now().plusMinutes(1));
 		
@@ -50,7 +50,7 @@ public class TransacaoServiceTest {
 
 	
 	@Test
-	public void deve_deletar_transacoes() throws TransacaoNaoPodeAcontecerNoFuturoException {
+	public void deveDeletarTransacoes() throws TransacaoNaoPodeAcontecerNoFuturoException {
 		Transacao transacao = new Transacao();
 		transacao.setDataHora(LocalDateTime.now());
 		
